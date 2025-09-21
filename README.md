@@ -6,11 +6,11 @@
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
 
-A professional-grade shipping cost calculator built with modern React patterns, featuring comprehensive error handling, performance optimizations, and enterprise-level code architecture.
+A shipping cost calculator built with modern React patterns, featuring comprehensive error handling, performance optimizations.
 
 ## 🏗️ Architecture Overview
 
-This application demonstrates senior-level React development practices with **perfect MVC (Model-View-Controller) pattern implementation**:
+**MVC (Model-View-Controller) pattern implementation**:
 
 - **Clean Architecture**: Separation of concerns with layered architecture
 - **MVC Pattern**: Complete separation of business logic from presentation layer
@@ -21,8 +21,6 @@ This application demonstrates senior-level React development practices with **pe
 - **Testing**: Unit tests with high coverage and best practices
 
 ### 🎯 MVC Pattern Implementation
-
-This application achieves **100% separation of business logic from the view layer** following enterprise-grade MVC principles:
 
 #### 📊 **Model Layer** (Business Logic & Data)
 ```
@@ -37,16 +35,6 @@ src/
 - **State Management**: Complex state logic using useReducer pattern
 - **Session State**: In-memory state management for current session
 - **Business Rules**: Centralized shipping rates and validation rules
-
-```javascript
-// Example: Pure business logic (NO UI concerns)
-export const calculateShippingCost = (weight, country) => {
-  if (!weight || !country || weight <= 0) return 0;
-  const rate = SHIPPING_RATES[country.toUpperCase()];
-  if (!rate) throw new Error(`Shipping rate not found for country: ${country}`);
-  return parseFloat((weight * rate).toFixed(2));
-};
-```
 
 #### 🎨 **View Layer** (Presentation Only)
 ```
@@ -64,20 +52,6 @@ src/
 - **Presentation State**: Only UI-specific state (loading, touched, etc.)
 - **Accessibility**: WCAG compliant with proper ARIA attributes
 
-```javascript
-// Example: Pure presentation (NO business logic)
-const AddBox = memo(() => {
-  const { addBox, loading, error } = useBox(); // Get business operations
-  const { formData, handleChange, validateForm } = useBoxForm(); // Get form logic
-  
-  return (
-    <form onSubmit={handleSubmit}>
-      {/* Pure JSX - only presentation concerns */}
-    </form>
-  );
-});
-```
-
 #### 🎮 **Controller Layer** (Orchestration)
 ```
 src/
@@ -92,89 +66,6 @@ src/
 - **Custom Hooks**: Reusable business logic abstraction
 - **Event Handling**: Processes user actions and triggers business operations
 - **State Coordination**: Manages complex state transitions
-
-```javascript
-// Example: Controller orchestration
-export const useBoxForm = () => {
-  // Orchestrates validation, state management, and business rules
-  const validateForm = useCallback(() => {
-    return validateBoxForm(formData); // Delegates to business logic
-  }, [formData]);
-  
-  const handleSubmit = useCallback(async (event) => {
-    // Orchestrates form submission workflow
-    // 1. Validate (via business logic)
-    // 2. Transform data (via business logic)  
-    // 3. Submit (via business operations)
-    // 4. Handle response (via state management)
-  }, []);
-};
-```
-
-### ✅ **MVC Compliance Benefits**
-
-#### **🧪 Complete Testability**
-```javascript
-// Test business logic independently of UI
-import { calculateShippingCost, validateBoxForm } from '../utils';
-
-test('calculates shipping cost correctly', () => {
-  expect(calculateShippingCost(1, 'SWEDEN')).toBe(7.35);
-});
-
-test('validates form data', () => {
-  const result = validateBoxForm({ receiverName: '', weight: 1, country: 'Sweden' });
-  expect(result.isValid).toBe(false);
-  expect(result.errors.receiverName).toBeDefined();
-});
-```
-
-#### **♻️ Complete Reusability**
-```javascript
-// Business logic can be used in different contexts
-import { calculateShippingCost } from '../utils';
-
-// Use in React components
-const cost = calculateShippingCost(weight, country);
-
-// Use in Node.js backend
-const apiCost = calculateShippingCost(requestData.weight, requestData.country);
-
-// Use in React Native mobile app
-const mobileCost = calculateShippingCost(formData.weight, formData.country);
-```
-
-#### **🔧 Complete Maintainability**
-- **Change Business Rules**: Only modify `utils/` and `constants/`
-- **Change UI Design**: Only modify `components/` and CSS
-- **Add New Features**: Clear separation guides implementation
-- **Framework Migration**: Business logic works with any UI framework
-
-#### **📈 Enterprise Scalability**
-- **Team Development**: Frontend and backend teams can work independently
-- **Code Reviews**: Clear boundaries make reviews more focused
-- **Feature Additions**: New functionality follows established patterns
-- **Technical Debt**: Isolated concerns prevent cascading changes
-
-### 🏆 **MVC Architecture Score: 10/10**
-
-✅ **Perfect Model Separation**: Business logic completely isolated  
-✅ **Pure View Components**: Zero business logic in presentation layer  
-✅ **Clear Controller Layer**: Well-defined orchestration boundaries  
-✅ **100% Testable**: Business logic testable without UI rendering  
-✅ **Framework Agnostic**: Business logic portable across platforms  
-✅ **Enterprise Ready**: Scalable for large team development
-
-## 🚀 Features
-
-### Core Functionality
-- **📝 Dynamic Form Management**: Advanced form with real-time validation and separated validation logic
-- **📊 Data Visualization**: Interactive table with modular row components
-- **🎨 Color Management**: RGB color picker with visual feedback
-- **💰 Currency Calculation**: Real-time shipping cost computation
-- **📱 Responsive Design**: Mobile-first approach with progressive enhancement
-- **🔧 Component Separation**: Modular architecture with BoxRow and validation separation
-- **🔔 User Notifications**: Toast notifications with useNotification hook
 
 ### Technical Features
 - **🛡️ Error Handling**: Comprehensive validation and user feedback
